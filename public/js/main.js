@@ -1,4 +1,4 @@
-// file: public/js/main.js
+
 document.addEventListener('DOMContentLoaded', () => {
   if (window.gsap) {
     gsap.from('.title', { duration: 0.8, y: 40, opacity: 0, ease: 'power2.out' });

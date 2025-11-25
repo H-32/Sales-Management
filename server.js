@@ -1,4 +1,5 @@
-// file: server.js
+
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const sql = require('mssql');
@@ -7,45 +8,44 @@ const path = require('path');
 
 const app = express();
 
-// إعدادات الاتصال بـ SQL Server
+
 const dbConfig = {
-  user: 'sales_user',
-  password: 'Sales@123',
-  server: 'PROFE\\SQLEXPRESS',
-  port: 0, // نستخدم 0 مع SQLEXPRESS حتى يعمل instance lookup
-  database: 'SalesManagement',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,
+  port: parseInt(process.env.DB_PORT || '0', 10),
+  database: process.env.DB_NAME,
   options: {
     encrypt: false,
     trustServerCertificate: true
   }
 };
 
-console.log('DB CONFIG IN USE:', dbConfig);
 
-// ميدل وير أساسية
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// السيشن (الجلسات) – حتى يحفظ تسجيل الدخول
+
 app.use(
   session({
-    name: 'sales.sid', // اسم الكوكي
-    secret: 'SalesManagement_SuperSecret_12345', // غيّريها لاحقاً لشي قوي
+    name: 'sales.sid', 
+   secret: process.env.SESSION_SECRET || 'fallback_secret_key', 
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000 // يوم كامل
-      // secure: false // خليه false لأننا نشتغل على http وليس https
+      maxAge: 24 * 60 * 60 * 1000  
+      
     }
   })
 );
 
-// تقديم ملفات الواجهة من فولدر public
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// إعداد Pool واحد للاتصال
+
 let pool;
 async function getPool() {
   if (pool) return pool;
@@ -53,7 +53,6 @@ async function getPool() {
   return pool;
 }
 
-// ميدل وير للتحقق من تسجيل الدخول
 function requireAuth(req, res, next) {
   if (req.session && req.session.user) {
     return next();
@@ -126,7 +125,7 @@ app.get('/api/protected', requireAuth, (req, res) => {
 });
 
 // =====================
-//   Product APIs (محميّة)
+//   Product APIs 
 // =====================
 
 // جلب كل المنتجات
@@ -230,7 +229,7 @@ app.delete('/api/products/:id', requireAuth, async (req, res) => {
 });
 
 // =====================
-//   Customer APIs (محميّة)
+//   Customer APIs 
 // =====================
 
 // جلب كل العملاء
@@ -345,7 +344,7 @@ app.delete('/api/customers/:id', requireAuth, async (req, res) => {
 });
 
 // =====================
-//   Orders APIs (محميّة)
+//   Orders APIs 
 // =====================
 
 // جلب كل الطلبيات (Order + Customer + Product + Order_item)
@@ -462,7 +461,7 @@ app.delete('/api/orders/:id', requireAuth, async (req, res) => {
 });
 
 // =====================
-//   Stats APIs (محميّة)
+//   Stats APIs 
 // =====================
 
 app.get('/api/stats', requireAuth, async (req, res) => {
@@ -498,7 +497,7 @@ app.get('/api/stats', requireAuth, async (req, res) => {
 });
 
 // =====================
-//  Sales Report API (محميّة)
+//  Sales Report API 
 // =====================
 app.get('/api/report/sales', requireAuth, async (req, res) => {
   try {
@@ -507,8 +506,6 @@ app.get('/api/report/sales', requireAuth, async (req, res) => {
     const fromDate = from ? new Date(from) : null;
     const toDate   = to   ? new Date(to)   : null;
     const custId   = customerId ? parseInt(customerId, 10) : null;
-
-    //console.log('REPORT PARAMS:', { fromDate, toDate, custId });
 
     const pool = await getPool();
     const request = pool.request()

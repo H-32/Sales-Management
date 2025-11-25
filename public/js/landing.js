@@ -1,7 +1,6 @@
-// file: public/js/landing.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  // =============== 0) تأكدنا من وجود GSAP ===============
   if (!window.gsap) {
     console.warn('GSAP not loaded');
     return;

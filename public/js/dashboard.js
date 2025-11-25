@@ -1,4 +1,3 @@
-// file: public/js/dashboard.js
 
 document.addEventListener('DOMContentLoaded', () => {
   // عناصر عامة
