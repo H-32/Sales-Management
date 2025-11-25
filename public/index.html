@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>نظام إدارة المبيعات | Sales Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Font Awesome للأيقونات -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- ملف الـ CSS الخاص بك -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- GSAP بدون integrity -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    defer
+  ></script>
+
+  <!-- سكربت الأنيميشن للصفحة الرئيسية -->
+  <script src="js/landing.js" defer></script>
+</head>
+<body>
+
+  <!-- هيدر بسيط أعلى الصفحة -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="logo">
+        <div class="logo-mark">S</div>
+        <div class="logo-text">
+          <span class="logo-title">Sales Management</span>
+          <span class="logo-sub">نظام إدارة المبيعات</span>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <a href="#about">عن النظام</a>
+        <a href="#features">المميزات</a>
+        <a href="#how">كيف يعمل؟</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="login.html" class="btn secondary small">تسجيل الدخول</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero hero-landing">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tag">لوحة تحكم ذكية للمبيعات</div>
+
+          <h1 class="title">
+            كل عملاءك، منتجاتك، وطلبياتك في لوحة واحدة أنيقة.
+          </h1>
+
+          <p class="subtitle">
+            هذا النظام صُمم ليخدم أصحاب المشاريع الصغيرة والمتوسطة،
+            ويساعدهم على تنظيم المنتجات، العملاء، الفواتير، وتقارير المبيعات
+            بشكل بسيط وواضح… بدون تعقيد أنظمة الشركات الكبيرة.
+          </p>
+
+          <div class="hero-badges">
+            <span class="badge">📦 إدارة منتجات</span>
+            <span class="badge">👥 إدارة عملاء</span>
+            <span class="badge">🧾 تسجيل الطلبيات</span>
+            <span class="badge">📊 تقارير وملفات CSV</span>
+          </div>
+
+          <div class="hero-buttons">
+            <a href="login.html" class="btn primary">
+              دخول لوحة التحكم
+            </a>
+            <a href="#about" class="btn secondary">
+              تعرّف على النظام
+            </a>
+          </div>
+        </div>
+
+        <!-- جهة ثانية شكل يوضح إنو هو نظام Dashboard -->
+        <div class="hero-illustration">
+          <div class="glass-card">
+            <div class="glass-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="glass-title">Dashboard Preview</span>
+            </div>
+            <div class="glass-body">
+              <div class="glass-stat-row">
+                <div class="glass-stat">
+                  <span class="label">إجمالي المبيعات</span>
+                  <span class="value">1,240,000 د.ع</span>
+                </div>
+                <div class="glass-stat">
+                  <span class="label">عدد الطلبيات</span>
+                  <span class="value">35</span>
+                </div>
+              </div>
+              <div class="glass-table-placeholder">
+                <div class="line"></div>
+                <div class="line short"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+              <div class="glass-footer">
+                واجهة فعلية ستظهر بعد تسجيل الدخول 👌
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+      <div class="section-inner">
+        <h2 class="section-title">ما هو نظام إدارة المبيعات؟</h2>
+        <p class="section-text">
+          هو نظام ويب بسيط مبني باستخدام
+          <strong>Node.js</strong> و
+          <strong>SQL Server</strong>، يوفّر لوحة تحكم باللغة العربية
+          لإدارة دورة المبيعات بالكامل:
+          من تعريف المنتجات، إلى تسجيل العملاء، مرورًا بإضافة الطلبيات،
+          وانتهاءً بتقارير مبيعات يمكن تصديرها كـ CSV وفتحها في Excel.
+        </p>
+
+        <div class="pill-grid">
+          <div class="pill">مناسب للمحلات الصغيرة</div>
+          <div class="pill">مكاتب الخدمات</div>
+          <div class="pill">العيادات والمراكز</div>
+          <div class="pill">أي مشروع يحتاج ترتيب مبيعاته</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section section-dark" id="features">
+      <div class="section-inner">
+        <h2 class="section-title">ماذا يقدّم لك النظام؟</h2>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📦</div>
+            <h3>إدارة المنتجات</h3>
+            <p>
+              إضافة، تعديل، وحذف المنتجات مع سعرها،
+              وعرض قائمة مرتبة بكل المنتجات في جدول احترافي.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3>إدارة العملاء</h3>
+            <p>
+              حفظ بيانات العملاء (الاسم، الهاتف، البريد)،
+              وربطهم بالطلبيات حتى تعرف من اشترى ماذا.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🧾</div>
+            <h3>تسجيل الطلبيات</h3>
+            <p>
+              اختيار العميل والمنتج والكمية والسعر،
+              والنظام يحسب قيمة الطلب ويُدخلها في قاعدة البيانات.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>تقارير المبيعات</h3>
+            <p>
+              فلترة حسب التاريخ أو العميل، رؤية إجمالي المبيعات، عدد الطلبيات،
+              إجمالي الكميات، وتصدير تقرير كامل كـ CSV.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section" id="how">
+      <div class="section-inner">
+        <h2 class="section-title">كيف يعمل النظام؟</h2>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>تسجيل الدخول</h3>
+            <p>
+              المسؤول يدخل ببياناته (admin) حتى يفتح لوحة التحكم
+              ويحمي البيانات من أي شخص خارجي.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>إضافة المنتجات والعملاء</h3>
+            <p>
+              أول خطوة هي تعريف المنتجات والزبائن،
+              حتى تكون جاهزًا لتسجيل أي عملية بيع.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>تسجيل الطلبيات اليومية</h3>
+            <p>
+              مع كل عملية بيع، تسجّل طلب جديد وتربطه بالعميل والمنتج،
+              والنظام يحسب الإجمالي تلقائيًا.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3>توليد التقارير</h3>
+            <p>
+              في نهاية اليوم أو الشهر،
+              تولّد تقرير مبيعات واضح وتصدّره كملف CSV لبرنامج Excel.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to action -->
+    <section class="section section-cta">
+      <div class="section-inner cta-inner">
+        <div class="cta-text">
+          <h2 class="section-title">جاهز تجرب لوحة التحكم؟</h2>
+          <p class="section-text">
+            بإمكانك الآن الدخول للنظام كمسؤول، إضافة بعض المنتجات والعملاء،
+            وتجربة تسجيل الطلبيات، ورؤية تقارير المبيعات بنفسك.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a href="login.html" class="btn primary">دخول لوحة التحكم</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<footer class="footer">
+  <div class="footer-inner">
+   <div class="footer-brand">
+      <div class="footer-logo-mark">S</div>
+      <div>
+        <div class="footer-title">Sales Management</div>
+        <div class="footer-subtitle">نظام إدارة المبيعات – نسخة تجريبية تعليمية 🌱</div>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <a href="#about">عن النظام</a>
+      <a href="#features">المميزات</a>
+      <a href="#how">كيف يعمل؟</a>
+    </div>
+
+    <div class="footer-social">
+      <a href="#" target="_blank" class="footer-icon" title="فيسبوك">
+        <i class="fa fa-facebook"></i>
+      </a>
+      <a href="https://instagram.com/32i_t" target="_blank" class="footer-icon" title="إنستغرام">
+        <i class="fa fa-instagram"></i>
+      </a>
+      <a href="https://github.com/H-32" target="_blank" class="footer-icon" title="جيت هاب">
+        <i class="fa fa-github"></i>
+      </a>
+      <a href="mailto:huessinaltai@gmail.com" target="_blank" class="footer-icon" title="البريد الإلكتروني">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!-- file: public/dashboard.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>لوحة إدارة المبيعات - Sales Management</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="dashboard-body">
+
+  <header class="dashboard-header">
+    <div class="dashboard-header-left">
+      <h1>لوحة إدارة المبيعات</h1>
+      <div class="dashboard-header-subtitle">إدارة المنتجات، العملاء، والطلبيات في مكان واحد</div>
+    </div>
+    <div class="dashboard-header-right">
+      <span class="user-label" id="currentUser">...</span>
+      <button id="logoutBtn" class="btn secondary">تسجيل الخروج</button>
+    </div>
+  </header>
+
+  <nav class="dashboard-nav">
+    <button class="tab-btn active" data-tab="products">المنتجات</button>
+    <button class="tab-btn" data-tab="customers">العملاء</button>
+    <button class="tab-btn" data-tab="orders">الطلبيات</button>
+    <button class="tab-btn" data-tab="reports">تقارير المبيعات</button>
+  </nav>
+
+  <main class="dashboard-main">
+
+    <!-- لوحة الإحصائيات -->
+    <section class="stats-grid">
+      <div class="stat-card stat-blue">
+        <div class="stat-label">إجمالي المبيعات</div>
+        <div class="stat-value" id="statTotalSales" data-value="0">0</div>
+        <div class="stat-extra">منذ بداية النظام (د.ع)</div>
+      </div>
+
+      <div class="stat-card stat-green">
+        <div class="stat-label">مبيعات اليوم</div>
+        <div class="stat-value" id="statTodaySales" data-value="0">0</div>
+        <div class="stat-extra">حسب تاريخ الطلب (د.ع)</div>
+      </div>
+
+      <div class="stat-card stat-purple">
+        <div class="stat-label">عدد الطلبات</div>
+        <div class="stat-value" id="statTotalOrders" data-value="0">0</div>
+        <div class="stat-extra">كل الطلبيات المسجلة</div>
+      </div>
+
+      <div class="stat-card stat-orange">
+        <div class="stat-label">عدد العملاء</div>
+        <div class="stat-value" id="statTotalCustomers" data-value="0">0</div>
+        <div class="stat-extra">عملاء النظام النشِطين</div>
+      </div>
+
+      <div class="stat-card stat-indigo">
+        <div class="stat-label">عدد المنتجات</div>
+        <div class="stat-value" id="statTotalProducts" data-value="0">0</div>
+        <div class="stat-extra">المنتجات المتاحة للبيع</div>
+      </div>
+    </section>
+
+    <!-- تبويب المنتجات -->
+    <section id="tab-products" class="tab-content active">
+      <div class="panel">
+        <h2>إدارة المنتجات</h2>
+        <p class="panel-subtitle">
+          أضف المنتجات الجديدة، حدّث الأسعار، أو احذف المنتجات من قاعدة البيانات.
+        </p>
+
+        <form id="productForm" class="form-inline">
+          <input type="hidden" id="productId" />
+
+          <div class="form-group">
+            <label for="productName">اسم المنتج</label>
+            <input type="text" id="productName" placeholder="مثال: شاشة 24 بوصة" required />
+          </div>
+
+          <div class="form-group">
+            <label for="productPrice">السعر</label>
+            <input type="number" step="0.01" id="productPrice" placeholder="0.00" required />
+          </div>
+
+          <button type="submit" class="btn primary" id="saveProductBtn">إضافة منتج</button>
+          <button type="button" class="btn secondary" id="cancelEditBtn" style="display:none;">إلغاء التعديل</button>
+        </form>
+
+        <p id="productMessage" class="message"></p>
+
+        <table class="data-table" id="productsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>اسم المنتج</th>
+              <th>السعر</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- المنتجات راح تنعرض هنا -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- تبويب العملاء -->
+    <section id="tab-customers" class="tab-content">
+      <div class="panel">
+        <h2>إدارة العملاء</h2>
+        <p class="panel-subtitle">
+          قم بإضافة عملاء جدد وتعديل بياناتهم وربطهم بالطلبيات لاحقاً.
+        </p>
+
+        <form id="customerForm" class="form-inline">
+          <input type="hidden" id="customerId" />
+
+          <div class="form-group">
+            <label for="customerName">اسم العميل</label>
+            <input type="text" id="customerName" placeholder="مثال: أحمد علي" required />
+          </div>
+
+          <div class="form-group">
+            <label for="customerPhone">رقم الهاتف</label>
+            <input type="text" id="customerPhone" placeholder="مثال: 0770XXXXXXX" />
+          </div>
+
+          <div class="form-group">
+            <label for="customerEmail">البريد الإلكتروني</label>
+            <input type="email" id="customerEmail" placeholder="email@example.com" />
+          </div>
+
+          <button type="submit" class="btn primary" id="saveCustomerBtn">إضافة عميل</button>
+          <button type="button" class="btn secondary" id="cancelCustomerEditBtn" style="display:none;">إلغاء التعديل</button>
+        </form>
+
+        <p id="customerMessage" class="message"></p>
+
+        <table class="data-table" id="customersTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الاسم</th>
+              <th>الهاتف</th>
+              <th>الإيميل</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- العملاء راح ينضافون هنا -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- تبويب الطلبيات -->
+    <section id="tab-orders" class="tab-content">
+      <div class="panel">
+        <h2>إدارة الطلبيات</h2>
+        <p class="panel-subtitle">
+          اختر العميل والمنتج، حدّد الكمية والسعر، ثم أضف الطلب إلى قاعدة البيانات.
+        </p>
+
+        <form id="orderForm" class="form-inline">
+          <div class="form-group">
+            <label for="orderCustomer">العميل</label>
+            <select id="orderCustomer" required>
+              <option value="">اختر عميلًا</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="orderProduct">المنتج</label>
+            <select id="orderProduct" required>
+              <option value="">اختر منتجًا</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="orderQuantity">الكمية</label>
+            <input type="number" id="orderQuantity" min="1" value="1" required />
+          </div>
+
+          <div class="form-group">
+            <label for="orderUnitPrice">السعر للوحدة</label>
+            <input type="number" step="0.01" id="orderUnitPrice" required />
+          </div>
+
+          <div class="form-group">
+            <label for="orderDate">تاريخ الطلب</label>
+            <input type="date" id="orderDate" />
+          </div>
+
+          <button type="submit" class="btn primary" id="saveOrderBtn">إضافة طلب</button>
+        </form>
+
+        <p id="orderMessage" class="message"></p>
+
+        <table class="data-table" id="ordersTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>التاريخ</th>
+              <th>العميل</th>
+              <th>المنتج</th>
+              <th>الكمية</th>
+              <th>السعر للوحدة</th>
+              <th>المجموع</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- الطلبيات راح تنعرض هنا -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- تبويب تقارير المبيعات -->
+    <section id="tab-reports" class="tab-content">
+      <div class="panel">
+        <h2>تقارير المبيعات</h2>
+        <p class="panel-subtitle">
+          اختر الفترة الزمنية، و(اختياريًا) عميل معيّن، لاستعراض تقرير مفصل للمبيعات.
+        </p>
+
+        <form id="reportForm" class="form-inline">
+          <div class="form-group">
+            <label for="reportFromDate">من تاريخ</label>
+            <input type="date" id="reportFromDate" />
+          </div>
+
+          <div class="form-group">
+            <label for="reportToDate">إلى تاريخ</label>
+            <input type="date" id="reportToDate" />
+          </div>
+
+          <div class="form-group">
+            <label for="reportCustomer">العميل</label>
+            <select id="reportCustomer">
+              <option value="">كل العملاء</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn primary">عرض التقرير</button>
+          <button type="button" class="btn secondary" id="exportCsvBtn">تصدير CSV</button>
+        </form>
+
+        <div class="report-summary">
+          <div class="report-summary-item">
+            <span class="label">إجمالي المبيعات:</span>
+            <span class="value" id="reportTotalSales">0</span>
+          </div>
+          <div class="report-summary-item">
+            <span class="label">عدد الطلبات:</span>
+            <span class="value" id="reportTotalOrders">0</span>
+          </div>
+          <div class="report-summary-item">
+            <span class="label">إجمالي الكمية:</span>
+            <span class="value" id="reportTotalQuantity">0</span>
+          </div>
+        </div>
+
+        <p id="reportMessage" class="message"></p>
+
+        <table class="data-table" id="reportTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>التاريخ</th>
+              <th>العميل</th>
+              <th>المنتج</th>
+              <th>الكمية</th>
+              <th>السعر للوحدة</th>
+              <th>المجموع</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- صفوف التقرير -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- كود الداشبورد -->
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
